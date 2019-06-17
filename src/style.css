@@ -1,0 +1,166 @@
+/* Variables */
+
+:root {
+  --color-main: #135589;
+  --color-tint: #135589BB;
+  --color-accent: #057B79;
+  --color-text: #0B2C46;
+  /* --color-light: #AEE5E6; */
+  --color-shadow: #00000050;
+  /* --color-offwhite: #EDFAFD; */
+  --color-offwhite: #EDFAFDE0;
+}
+
+/* Clearfix */
+
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background: var(--color-accent);
+  background: linear-gradient(0deg, var(--color-tint), var(--color-tint)), 
+              url("christopher-harris-55545-unsplash.jpg")  no-repeat center center fixed; /* Photo by Christopher Harris on Unsplash */
+  -webkit-background-size: cover;
+     -moz-background-size: cover;
+       -o-background-size: cover;
+          background-size: cover;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: .025rem;
+  color: black;
+}
+
+.container {
+  width: 80%;
+  max-width: 25rem;
+  margin: 3rem auto;
+  padding: 2rem 3rem;
+  background: var(--color-offwhite);
+  border-radius: 4px;
+  box-shadow: 0px 10px 30px 0px var(--color-shadow);
+}
+
+h1 {
+  color: var(--color-main);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.row {
+  line-height: 2.5rem;
+
+  /* flex */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center; 
+}
+
+input {
+  background: white;
+  caret-color: var(--color-main);
+  border: var(--color-main) 1px solid;
+  border-bottom: var(--color-main) 2px solid;
+  border-radius: 4px;
+  line-height: 1.5rem;
+  margin: .5rem 0;
+  padding: .3rem;
+  font-size: 1rem;
+  color: var(--color-main);
+  flex: 2 0 auto;
+}
+
+label {
+  font-size: 1rem;
+  text-decoration: none;
+  flex: 1 0 auto;
+}
+
+#pass-show {
+  margin: 0 0 0 -2.2rem;
+  padding: .5rem;
+  cursor: pointer;
+}
+
+#pass-hint {
+  font-weight: lighter;
+  font-size: .75rem;
+  color: var(--color-main);
+}
+
+@media (min-width: 440px) {
+  #pass-hint {
+    width: 68%;
+    margin-left: auto;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+a {
+  color: var(--color-main);
+}
+
+a.pass-forgot {
+  text-align: end;
+  color: var(--color-accent);
+  margin: .5rem 0;
+  display: block;
+}
+
+a.pass-forgot,
+label.remember {
+  font-size: .95rem;
+}
+
+input#remember {
+  margin: 0 .75rem 0 0;
+  flex: 0 0 auto;
+}
+
+input#remember:hover,
+input#remember:focus {
+  cursor: pointer;
+}
+
+input.btn {
+  flex: 0 1 auto;
+  padding: .5rem 2rem;
+  margin: 1rem auto;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: var(--color-main);
+  border: var(--color-accent) 1px solid;
+  border-radius: 4px;
+  color: white;
+  -webkit-transition: all 0.6s ease;
+     -moz-transition: all 0.6s ease;
+      -ms-transition: all 0.6s ease;
+       -o-transition: all 0.6s ease;
+          transition: all 0.6s ease; 
+}
+
+input.btn:hover,
+input.btn:focus {
+  cursor: pointer;
+  background: var(--color-accent);
+  -webkit-transform: scale(1.1);
+     -moz-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+       -o-transform: scale(1.1);
+          transform: scale(1.1);
+}

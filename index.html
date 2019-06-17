@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Login | Take Home Test</title>
+
+  <link rel="shortcut icon" href="src/icon-key.png" type="image/x-icon">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+
+  <main>
+
+    <form action="index.html" method="post" class="container">
+
+      <h1>Login</h1>
+
+      <div class="row">
+
+        <label for="username">User name:</label>
+        <input type="text" name="username" id="username" 
+          class="input" required>
+          
+      </div>
+
+      <div class="row">
+
+        <label for="pass">Password:</label>
+        <input type="password" name="password" id="pass" 
+          class="input" minlength="8" required>
+
+        <!-- Password show/hide toggler -->
+        <i class="far fa-eye" id="pass-show" aria-hidden="true" type="button"></i>
+
+      </div>
+      <!-- Password constraints hint -->
+      <div id="pass-hint" class="hidden">Must include one (1) capital letter, one (1) lower case letter, and at least one (1) number</div>
+
+      <a href="/password-recovery.html" class="pass-forgot" type="button">
+        Forgot password?</a>
+
+      <div class="row">
+
+        <!-- Local storage option for the username -->
+        <input type="checkbox" name="remember" id="remember">
+        <label for="remember" class="remember">Remember me</label>
+
+      </div>
+
+      <div class="row">
+
+        <input type="submit" class="btn" id="logIn" value="Log in"></input>
+
+      </div>
+
+    </form>
+
+  </main>
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/89a04ebb82.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="src/index.js" type="text/javascript"></script>
+</body>
+</html>
