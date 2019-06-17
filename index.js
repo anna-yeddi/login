@@ -15,7 +15,7 @@ let passIsShown = false;
 
 window.addEventListener('DOMContentLoaded', () => {   
   'use strict';
-  // Locally store/retrieve user details locally
+  // Store/retrieve user details from localStorage
   saveUsername();
 
   // Watch for errors
@@ -156,8 +156,10 @@ function togglePasswordHint() {
 // Form validation for test user
 
 function checkForm() {
-  let testUser = 'level',
-      testPass = 'Access123';
+  getUserData();
+
+  let testUser = data.username,
+      testPass = data.pass;
       
   // check credentials
   if (user.value != testUser || pass.value != testPass) {
@@ -167,4 +169,21 @@ function checkForm() {
     alert('Login Successful! \nRedirecting...');
     return true;
   }
+}
+
+function getUserData() {
+  let request = new XMLHttpRequest();
+
+  request.open('GET', 'src/testUser.json'); // local server
+  request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  request.send();
+
+  request.addEventListener('readystatechange', () => {
+    if (request.readyState == 4 && request.status == 200) {
+      data = JSON.parse(request.response);
+    } else if (request.status != 200) {
+      // alert('Something went wrong. Please, reload the page and try again.');
+      console.error(`Request returned with ${request.status} status`);
+    }
+  });
 }

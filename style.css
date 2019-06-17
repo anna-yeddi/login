@@ -33,7 +33,7 @@ html {
 body {
   background: var(--color-accent); /* fallback color */
   background: linear-gradient(0deg, var(--color-tint), var(--color-tint)), 
-              url("christopher-harris-55545-unsplash.jpg")  no-repeat center center fixed; /* Photo by Christopher Harris on Unsplash */
+              url("src/christopher-harris-55545-unsplash.jpg")  no-repeat center center fixed; /* Photo by Christopher Harris on Unsplash */
   -webkit-background-size: cover;
      -moz-background-size: cover;
        -o-background-size: cover;
@@ -75,6 +75,24 @@ h1 {
   margin: 1.5rem auto;
 }
 
+h2 {
+  padding: 2rem 3rem 4rem 3rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+h2 a {
+  color: var(--color-accent);
+}
+
+h2 a:hover {
+  color: var(--color-main);
+}
+
+#login-success:focus-within {
+  background: whitesmoke;
+}
+
 /* Summary of Errors style */
 
 ul#errors {
@@ -92,8 +110,14 @@ ul#errors > li {
 /* Form styles */
 
 form {
-  padding: 0 3rem 2rem 3rem;
+  padding: 0 1rem 2rem 1rem;
   border-radius: 4px;
+}
+
+@media (min-width: 380px) {
+  form {
+    padding: 0 3rem 2rem 3rem;
+  }
 }
 
 form:focus-within {
@@ -140,6 +164,7 @@ label {
   color: var(--color-main);
   text-align: initial;
   padding: .5rem 0;
+  margin-left: .2rem;
 
   /* animation */
   overflow: hidden;
