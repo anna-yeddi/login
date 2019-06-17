@@ -1,18 +1,31 @@
+// DOM variables
+
 const checkbox = document.querySelector('#remember'),
-      hint = document.querySelector('#pass-hint'),
+      errorsMsg = document.querySelector('#errors'),
+      errPass = document.querySelector('#pass-err'),
+      errUser = document.querySelector('#username-err'),
+      hintPass = document.querySelector('#pass-hint'),
+      login = document.querySelector('#logIn'),
       pass = document.querySelector('#pass'),
       passToggler = document.querySelector('#pass-show'),
-      username = document.querySelector('#username');
-let passIsShown = false,
-    hintIsShown = false;
+      user = document.querySelector('#username');
+let passIsShown = false;
+
+// Page scripts:
 
 window.addEventListener('DOMContentLoaded', () => {   
   'use strict';
   // Locally store/retrieve user details locally
   saveUsername();
-  // Watch for showing password toggler
+
+  // Watch for errors
+  toggleUsernameError();
+  togglePasswordError();
+  checkPassRedExp();
+  listAllErrors();
+
+  // Watch for togglers
   togglePasswordShow();
-  // Watch for password requirements toggler
   togglePasswordHint();
 });
 
@@ -23,7 +36,7 @@ function saveUsername() {
 
   if (localStorage.getItem('remember') === 'true') {
     checkbox.checked = true;
-    username.value = localStorage.getItem('username');
+    user.value = localStorage.getItem('username');
   }
       
   checkbox.addEventListener('click', () => {
@@ -31,7 +44,7 @@ function saveUsername() {
     checkNext = !checkNext;
 
     if (checkNext === false) {
-      localStorage.setItem('username', username.value);
+      localStorage.setItem('username', user.value);
       localStorage.setItem('remember', true);
     } else {
       localStorage.removeItem('username');
@@ -39,6 +52,70 @@ function saveUsername() {
     }
   });
 }
+
+
+// Check if fields are empty
+
+function toggleUsernameError() {
+  user.addEventListener('blur', () => {
+    if (user.value == '') {
+      errUser.classList.remove('hidden');
+      user.classList.add('error');
+    } else {
+      errUser.classList.add('hidden');
+      user.classList.remove('error');
+    }
+  }, false);
+}
+
+function togglePasswordError() {
+  pass.addEventListener('blur', () => {
+    if (pass.value == '') {
+      errPass.classList.remove('hidden');
+      pass.classList.add('error');
+    } else {
+      errPass.classList.add('hidden');
+      pass.classList.remove('error');
+    }
+  }, false);
+}
+
+// Check the password constraints
+
+function checkPassRedExp() {
+  const rePass = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])");
+
+  pass.addEventListener('blur', () => {
+    if (!rePass.test(pass.value)) {
+      hintPass.classList.remove('hidden');
+      hintPass.classList.add('error');
+      pass.classList.add('error');
+    } else {
+      hintPass.classList.add('hidden');
+      hintPass.classList.remove('error');
+      pass.classList.remove('error');
+    }
+  }, false);
+}
+
+// List all errors on the top
+
+function listAllErrors() {
+  
+  login.addEventListener('click', () => {
+    errorsMsg.innerHTML = null;
+    let errorsAll = document.querySelectorAll('.hint.error:not(.hidden)');
+
+    errorsAll.forEach(el => {
+      let newErrMsgTxt = document.createTextNode(`Error: ${el.textContent}.`),
+          newErrMsg = document.createElement('li');
+
+      newErrMsg.appendChild(newErrMsgTxt);
+      errorsMsg.insertAdjacentElement('beforeend', newErrMsg);
+    });
+  });
+}
+
 
 // Watch for showing password toggler
 
@@ -57,23 +134,37 @@ function passShow() {
   pass.setAttribute('type', 'text');
   passToggler.classList.remove('fa-eye'); // opened eye icon
   passToggler.classList.add('fa-eye-slash'); // crossed eye icon
-  hint.classList.remove('hidden'); // show the password hint
+  hintPass.classList.remove('hidden'); // show the password hint
 }
 
 function passHide() {
   pass.setAttribute('type', 'password');
   passToggler.classList.remove('fa-eye-slash');
   passToggler.classList.add('fa-eye');
-  hint.classList.add('hidden'); // hide the password hint
+  hintPass.classList.add('hidden'); // hide the password hint
 }
 
-// Watch for password requirements hint toggler
+// Watch for password constraints hint toggler
 
 function togglePasswordHint() {
   pass.addEventListener('focusin', () => {
-    hint.classList.remove('hidden');
+    hintPass.classList.remove('hidden');
   }, false);
-  pass.addEventListener('blur', () => {
-    hint.classList.add('hidden');
-  }, false);
+}
+
+
+// Form validation for test user
+
+function checkForm() {
+  let testUser = 'level',
+      testPass = 'Access123';
+      
+  // check credentials
+  if (user.value != testUser || pass.value != testPass) {
+    alert('Your username/password combination was not recognized. \nPlease, try again.');
+    return false;
+  } else {
+    alert('Login Successful! \nRedirecting...');
+    return true;
+  }
 }

@@ -4,6 +4,7 @@
   --color-main: #135589;
   --color-tint: #135589BB;
   --color-accent: #057B79;
+  --color-error: #A80404;
   --color-text: #0B2C46;
   --color-shadow: #00000050;
   --color-offwhite: #EDFAFDE0;
@@ -23,8 +24,10 @@ html {
   box-sizing: inherit;
 }
 
+/* Global styles */
+
 *:focus {
-  outline-color: var(--color-accent);
+  outline-color: var(--color-main);
 }
 
 body {
@@ -42,19 +45,20 @@ body {
   color: black;
 }
 
-form.container {
+/* Login Block */
+
+.container {
   width: 80%;
   max-width: 25rem;
   margin: 3rem auto;
-  padding: 2rem 3rem;
-  text-align: center;
+  padding-top: 2rem;
   background: var(--color-offwhite);
   border-radius: 4px;
   box-shadow: 0px 10px 30px 0px var(--color-shadow);
 }
 
-form.container:focus-within {
-  background: whitesmoke;
+header {
+  text-align: center;
 }
 
 .login-icon {
@@ -69,6 +73,31 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   margin: 1.5rem auto;
+}
+
+/* Summary of Errors style */
+
+ul#errors {
+  padding: .5rem 0 .5rem 1.05rem;
+}
+
+ul#errors > li {
+  list-style-type: disc !important;
+  list-style-position: unset;
+  color: var(--color-error);
+  font-size: .85rem;
+  padding: 0;
+}
+
+/* Form styles */
+
+form {
+  padding: 0 3rem 2rem 3rem;
+  border-radius: 4px;
+}
+
+form:focus-within {
+  background: whitesmoke;
 }
 
 .row {
@@ -103,89 +132,71 @@ label {
   flex: 1 0 auto;
 }
 
+/* Hints and Errors style */
+
+.hint {
+  font-weight: lighter;
+  font-size: .75rem;
+  color: var(--color-main);
+  text-align: initial;
+  padding: .5rem 0;
+
+  /* animation */
+  overflow: hidden;
+  max-height: 9.5rem;
+  transition: max-height 0.85s ease-in;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .hint {
+    -webkit-transition: none;
+       -moz-transition: none;
+         -o-transition: none;
+            transition: none;
+  }
+}
+
+@media (min-width: 440px) {
+  .hint {
+    width: 68%;
+    margin-left: auto;
+  }
+}
+
+.hint.error {
+  color: var(--color-error);
+}
+
+input.error {
+  border: var(--color-error) 2px solid;
+  border-bottom: var(--color-error) 4px solid;
+}
+
+.hint.hidden {
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+  transition: max-height 0.85s ease-out;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .hint.hidden {
+    -webkit-transition: none;
+       -moz-transition: none;
+         -o-transition: none;
+            transition: none;
+  }
+}
+
+/* Show password toggle */
+
 #pass-show {
   margin: 0 0 0 -2.2rem;
   padding: .5rem;
   cursor: pointer;
 }
 
-#pass-hint {
-  font-weight: lighter;
-  font-size: .75rem;
-  color: var(--color-main);
-  text-align: initial;
-  padding-bottom: .5rem;
-  display: block;
-    
-  -webkit-animation: slide-up 0.85s ease-out;
-     -moz-animation: slide-up 0.85s ease-out;
-       -o-animation: slide-up 0.85s ease-out;
-          animation: slide-up 0.85s ease-out;
-}
-
-@-webkit-keyframes slide-up {
-  0% { 
-    opacity: 0;
-    -webkit-transform: translateY(100%);
-  }   
-  100% { 
-    opacity: 1;
-    -webkit-transform: translateY(0);
-  }
-}
-
-@-moz-keyframes slide-up {
-  0% { 
-    opacity: 0; 
-    -moz-transform: translateY(100%); 
-  }   
-  100% { 
-    opacity: 1; 
-    -moz-transform: translateY(0); 
-  }
-}
-
-@-o-keyframes slide-up {
-  0% { 
-    opacity: 0; 
-    -o-transform: translateY(100%); 
-  }   
-  100% { 
-    opacity: 1; 
-    -o-transform: translateY(0); 
-  }
-}
-
-@keyframes slide-up {
-  0% { 
-    opacity: 0; 
-    transform: translateY(100%); 
-  }   
-  100% { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-@media screen and (prefers-reduced-motion: reduce) {
-  #pass-hint {
-    -webkit-animation: none;
-       -moz-animation: none;
-         -o-animation: none;
-            animation: none;
-  }
-}
-
-@media (min-width: 440px) {
-  #pass-hint {
-    width: 68%;
-    margin-left: auto;
-  }
-}
-
-#pass-hint.hidden {
-  display: none;
-}
+/* Password recovery block */
 
 a.pass-forgot {
   text-align: end;
@@ -199,22 +210,32 @@ a.pass-forgot:focus {
 }
 
 a.pass-forgot,
-label.remember {
+label.remember input#remember {
   font-size: .95rem;
+  margin-top: 1rem;
+}
+
+/* Option to save username locally */
+
+label.remember:focus {
+  outline: var(--color-accent) auto 5px;
+}
+
+label.remember:hover,
+input#remember:hover {
+  cursor: pointer;
 }
 
 input#remember {
   margin: 0 .75rem 0 0;
-  flex: 0 0 auto;
+  border-radius: 4px;
 }
 
-.remember:hover {
-  cursor: pointer;
+input#remember:focus {
+  border: var(--color-accent) .5rem solid;
 }
 
-.remember:focus {
-  outline: var(--color-accent) auto 5px;
-}
+/* Login button */
 
 input.btn {
   flex: 0 1 auto;
@@ -235,7 +256,7 @@ input.btn {
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-  .input.btn {
+  input.btn {
     -webkit-transition: none;
        -moz-transition: none;
         -ms-transition: none;
